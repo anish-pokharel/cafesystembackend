@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/signup',(req,res)=>{
 let user = req.body;
-query ="select email, password ,role ,status from user ehere email =?"
+query ="select email, password ,role ,status from user where email =?"
 connection.query(query,[user.email],(err,results)=>{
 
     if (!err){
