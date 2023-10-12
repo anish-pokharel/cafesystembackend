@@ -15,7 +15,7 @@ connection.query(query,[user.email],(err,results)=>{
     if (!err){
         if(results.length<=0){
             query ="insert into user (name,contactNumber,email,password,status ,role) values(?,?,?,?,'false','user')";
-            connection.query(query,[user.name,user.contactNumber,user.name,user.password],(err,results)=>{
+            connection.query(query,[user.name,user.contactNumber,user.email,user.password],(err,results)=>{
                 if(!err){
                     return res.status(200).json({message :"sign up sucessful "})
                 }
@@ -103,5 +103,20 @@ router.post('/forgetpassword',(req,res)=>{
         }
     })
 })
+
+router.get('/get',(req,res)=>{
+    var query= "select id,name,email,contactNumber,status from user where role='user'";
+    connection.query(query,(err,results)=>{
+        if(!err){
+            return res.status(200).json(results);
+        }
+        else{
+            return res.status(500).json(err);
+        }
+    })
+
+})
+
+
 
 module.exports= router;
