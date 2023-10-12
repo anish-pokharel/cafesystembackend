@@ -117,6 +117,32 @@ router.get('/get',(req,res)=>{
 
 })
 
+ router.patch("/update",(req,res)=>{
+    let user = req.body;
+    var query = "update user set status =? where id=?"
+    connection.query(query,[user.status,user.id],(err,results)=>{
+        if(!err){
+if(results.affectedRows==0)
+{
+    return res.status(404).json({message:"userid doesnot exist"});
+}
+return res.status(200).json({message:"user update sucessfull" })
+        }
+        else{
+            return res.status(500).json(err)
+        }
+    })
+ })
+
+
+ router.get("./checkToken",(req,res)=>{
+    return res.status(200).json({message:"true"});
+ })
+
+
+ router.post('/changePassword',(req,res)=>{
+    
+ })
 
 
 module.exports= router;
